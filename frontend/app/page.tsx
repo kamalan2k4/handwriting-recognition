@@ -25,6 +25,8 @@ export default function HandwritingCanvas() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
     
+    ctx.strokeStyle = "#ffffff";
+    ctx.lineWidth = 4;
     ctx.beginPath();
     ctx.moveTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
     setIsDrawing(true);
@@ -51,12 +53,12 @@ export default function HandwritingCanvas() {
 
   const clearCanvas = () => {
     const canvas = canvasRef.current;
-    if (!canvas) return;  // Ensure canvas is not null
+    if (!canvas) return;
   
     const ctx = canvas.getContext("2d");
-    if (!ctx) return; // Ensure context is not null
+    if (!ctx) return;
   
-    ctx.fillStyle = "#111111";
+    ctx.fillStyle = "#000000";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     setRecognizedText("");
   };
@@ -122,7 +124,7 @@ export default function HandwritingCanvas() {
           ref={canvasRef}
           width={600}
           height={300}
-          className="border-4 border-gray-700 rounded-lg shadow-2xl bg-black/70 backdrop-blur-md"
+          className="border-4 border-gray-700 rounded-lg shadow-2xl bg-black"
           onMouseDown={startDrawing}
           onMouseMove={draw}
           onMouseUp={stopDrawing}
