@@ -82,7 +82,7 @@ export default function HandwritingCanvas() {
     formData.append("file", imageBlob, "canvas-drawing.png");
   
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/recognize`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}recognize`, {
         method: "POST",
         body: formData,
       });
