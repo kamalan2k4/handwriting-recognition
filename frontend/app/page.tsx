@@ -2,7 +2,8 @@
 import { useRef, useState, useEffect } from "react";
 import { Button } from "../components/ui/button";
 import "katex/dist/katex.min.css";
-import { BlockMath } from "react-katex";
+import katex from "katex";
+
 import { motion } from "framer-motion";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Stars } from "@react-three/drei";
@@ -122,8 +123,9 @@ export default function HandwritingCanvas() {
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.5 }}
           >
-            <p className="text-lg text-cyan-300 mb-2">Recognized Expression:</p>
-            <BlockMath math={recognizedText} className="text-2xl text-green-400" />
+           
+           <p className="text-lg text-cyan-300 mb-2">Recognized Expression:</p>
+            <div dangerouslySetInnerHTML={{ __html: katex.renderToString(recognizedText) }} className="text-2xl text-green-400" />
           </motion.div>
         )}
       </div>
