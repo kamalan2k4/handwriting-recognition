@@ -1,123 +1,102 @@
-# ✍️ Handwriting Recognition Web App
+# Handwriting Recognition
 
-## 📌 Overview
-This project is a **handwriting recognition web application** that allows users to write on a **canvas** using a **stylus (or mouse)** and converts handwritten text into machine-readable format. The application supports mathematical expressions and symbols.
+![Project Banner](./screenshots/output1.png)  
+![Project Banner](./screenshots/output2.png)
 
-The backend uses **Microsoft's TrOCR (Transformer-based OCR model)** for handwriting recognition, while the frontend provides an **interactive, stylized UI**.
+*Handwriting Recognition using Microsoft's TrOCR model*
 
-## 🚀 Live Demo
-🔗 **Backend API**: [https://your-render-url.onrender.com/docs](https://your-render-url.onrender.com/docs)  
-🔗 **Frontend**: [https://your-vercel-url.vercel.app](https://your-vercel-url.vercel.app)
+## Overview
+This project is a **Handwriting Recognition Web App** that allows users to write on a canvas and recognize handwritten mathematical expressions using deep learning. The backend is powered by **FastAPI** and **Microsoft's TrOCR model**, while the frontend is built with **Next.js and Tailwind CSS**.
 
-## 📸 Screenshots
-| Writing on Canvas | Recognized Output |
-|------------------|------------------|
-| ![Canvas](./screenshots/canvas.png) | ![Output](./screenshots/output.png) |
-
-## 🏗️ Tech Stack
-- **Frontend**: Next.js (React 19), Tailwind CSS, Framer Motion, Three.js
-- **Backend**: FastAPI, Uvicorn
-- **Machine Learning Model**: TrOCR (Microsoft Transformer OCR)
-- **Deployment**: Vercel (Frontend), Render (Backend)
+## Features
+- 🎨 **Canvas** for handwriting input
+- 🔍 **Handwriting recognition** using TrOCR
+- 🌐 **FastAPI backend** for processing images
+- 🎭 **Interactive UI** with animations and effects
+- 🔧 **Local deployment guide** for easy setup
 
 ---
 
-## 🧠 **Why TrOCR for Handwriting Recognition?**
-### ✅ **Advantages of TrOCR:**
-- Uses **Vision Transformers (ViT) and GPT-like architecture** for **better recognition accuracy**.
-- Pre-trained on diverse handwriting datasets, making it **robust for real-world usage**.
-- **No manual feature engineering required**—it learns directly from raw image inputs.
+## Why TrOCR?
+We chose **Microsoft's TrOCR (Transformer-based Optical Character Recognition)** model because:
+- It is **pre-trained on diverse handwritten datasets**, making it well-suited for this task.
+- Uses **Vision Transformer (ViT) + GPT architecture** for accurate text recognition.
+- Works well **without additional training** for general handwriting recognition.
 
-### 🔍 **Why Not Other Models?**
-| Model | Reason Not Selected |
-|--------|-------------------|
-| Tesseract OCR | Works better for printed text, struggles with handwriting. |
-| EasyOCR | Less accurate for complex handwriting. |
-| CRNN + CTC | Requires additional pre-processing for training. |
+### 🔍 Understanding TrOCR
+Microsoft's **TrOCR model** is a **deep learning-based OCR system** that combines:
+- **Vision Transformer (ViT):** Extracts visual features from handwritten images.
+- **Autoregressive GPT Decoder:** Converts visual data into human-readable text.
+- **Pre-training on handwritten datasets:** Ensures high accuracy without the need for additional fine-tuning.
 
-Based on our evaluation, **TrOCR outperforms other models for handwritten text recognition**.
+🔹 **Why It Works Well for This Project?**
+TrOCR's transformer-based architecture allows it to handle complex handwriting, making it an excellent choice for OCR tasks. Unlike traditional CNN-based models, TrOCR adapts better to variations in writing styles and character distortions.
 
 ---
 
-## 🛠️ **Installation & Setup**
-### **1️⃣ Clone the Repository**
-```bash
+## Local Setup Instructions
+
+### 1️⃣ Clone the Repository
+```sh
 git clone https://github.com/kamalan2k4/handwriting-recognition.git
 cd handwriting-recognition
 ```
 
-### **2️⃣ Backend Setup**
-#### 📌 **Requirements:** Python 3.10+
-```bash
+### 2️⃣ Set Up the Backend
+#### Install Dependencies
+```sh
 cd backend
-python -m venv env  # Create a virtual environment
-source env/bin/activate  # Activate environment (Linux/macOS)
-# For Windows: env\Scripts\activate
-pip install -r requirements.txt  # Install dependencies
-uvicorn main:app --host 0.0.0.0 --port 8000 --reload  # Start server
+python -m venv env
+source env/bin/activate  # On Windows: env\Scripts\activate
+pip install -r requirements.txt
 ```
-🔗 Open API docs at: **[http://localhost:8000/docs](http://localhost:8000/docs)**
 
-### **3️⃣ Frontend Setup**
-#### 📌 **Requirements:** Node.js 18+
-```bash
+
+#### Run the Backend
+```sh
+uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+```
+The API will be available at: [http://localhost:8000/docs](http://localhost:8000/docs)
+
+
+
+---
+
+### 3️⃣ Set Up the Frontend
+#### Install Dependencies
+```sh
 cd ../frontend
-npm install  # Install dependencies
-npm run dev  # Start development server
+npm install
 ```
-🔗 Open frontend at: **[http://localhost:3000](http://localhost:3000)**
+
+
+
+#### Run the Frontend
+```sh
+npm run dev
+```
+Your app will be available at: [http://localhost:3000](http://localhost:3000)
+
 
 ---
 
-## 🖥️ **Project Structure**
-```
-handwriting-recognition/
-│── backend/            # FastAPI Backend
-│   ├── main.py         # API Endpoints
-│   ├── requirements.txt # Dependencies
-│   ├── runtime.txt      # Python version for Render
-│── frontend/           # Next.js Frontend
-│   ├── app/page.tsx    # Main UI
-│   ├── components/     # UI Components
-│── README.md           # Documentation
-```
+## Why Not Deployed?
+We initially attempted to deploy this project on **Render (Backend)** and **Vercel (Frontend)**. However, deployment **failed due to the following issues**:
+
+1. **Render's Free Tier (512MB RAM) is insufficient** for running the TrOCR model, which requires more memory.
+2. **Torch & Transformers dependencies caused high resource usage**, leading to out-of-memory errors.
+
+
+### ⚡ Alternative Solutions
+- 🛠 **Running locally** ensures smooth execution **without memory constraints**.
+- ☁️ **Exploring GPU-based cloud services** (AWS, Hugging Face Spaces) for future deployment.
+- 📦 **Optimizing dependencies** to reduce memory usage.
+
+💡 **For now, follow the local setup guide to run the project successfully!** 🚀
 
 ---
 
-## 🚀 **Deployment**
-### **Deploy Backend on Render**
-1️⃣ Go to **Render Dashboard** → Create **New Web Service**
-2️⃣ Connect **GitHub Repo** → Set Environment Variables:
-   ```
-   PYTHON_VERSION=3.10.12
-   PORT=8000
-   ```
-3️⃣ **Build Command:**
-   ```bash
-   pip install -r requirements.txt
-   ```
-4️⃣ **Start Command:**
-   ```bash
-   uvicorn main:app --host 0.0.0.0 --port $PORT
-   ```
 
-### **Deploy Frontend on Vercel**
-1️⃣ Go to **Vercel Dashboard** → Import GitHub Repo
-2️⃣ Set Environment Variable:
-   ```
-   NEXT_PUBLIC_API_URL=https://your-render-url.onrender.com
-   ```
-3️⃣ Click **Deploy** 🚀
-
----
-
-## 📜 **License**
-This project is **open-source** under the [MIT License](LICENSE).
-
-## 📞 **Contact**
-If you have any questions, feel free to **reach out**:
-📧 Email: [your-email@example.com](mailto:your-email@example.com)  
-🐦 Twitter: [@yourhandle](https://twitter.com/yourhandle)  
-
-🔥 **Star this repo** if you found it useful! ⭐
+### 📌 Author
+**Kamalan** | [GitHub](https://github.com/kamalan2k4)
 
