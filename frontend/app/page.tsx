@@ -64,32 +64,38 @@ export default function HandwritingCanvas() {
 
   const processImage = async () => {
     const canvas = canvasRef.current;
-    const imageBlob = await new Promise(resolve => canvas.toBlob(resolve, "image/png", 1.0));
-    
+    if (!canvas) {
+      console.error("Canvas is not available");
+      return;
+    }
+  
+    const imageBlob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, "image/png", 1.0));
+  
     if (!imageBlob) {
       console.error("Canvas image capture failed.");
       return;
     }
-
+  
     const formData = new FormData();
     formData.append("file", imageBlob, "canvas-drawing.png");
-    
+  
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/recognize`, {
         method: "POST",
-        body: formData
+        body: formData,
       });
-      
+  
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-      
+  
       const data = await response.json();
       setRecognizedText(data.latex || "Recognition failed");
     } catch (error) {
       console.error("Error recognizing handwriting", error);
     }
   };
+  
 
   return (
     <div className="relative min-h-screen w-full overflow-hidden text-white font-mono">
