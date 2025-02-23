@@ -51,11 +51,16 @@ export default function HandwritingCanvas() {
 
   const clearCanvas = () => {
     const canvas = canvasRef.current;
+    if (!canvas) return;  // Ensure canvas is not null
+  
     const ctx = canvas.getContext("2d");
+    if (!ctx) return; // Ensure context is not null
+  
     ctx.fillStyle = "#111111";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     setRecognizedText("");
   };
+  
 
   const processImage = async () => {
     const canvas = canvasRef.current;
